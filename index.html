@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="A clear overview of your business income, expenses and cash."
+    >
+    <title>Dashboard | SME Finance</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#overview-section" aria-label="SME Finance home">
+          <span class="brand-mark" aria-hidden="true">S</span>
+          <span>SME Finance<small>Ghana Business</small></span>
+        </a>
+        <nav class="navigation">
+          <a class="nav-link active" href="#overview-section"><span aria-hidden="true">▦</span> Overview</a>
+          <a class="nav-link" href="#wallets"><span aria-hidden="true">▣</span> Wallets</a>
+          <a class="nav-link" href="#activity"><span aria-hidden="true">↕</span> Transactions</a>
+          <a class="nav-link" href="#debts"><span aria-hidden="true">◷</span> Debts</a>
+        </nav>
+        <div class="sidebar-note">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Finance workspace<small>Ready to go</small></span>
+        </div>
+      </aside>
+
+      <main class="main-content" id="overview">
+        <header class="topbar">
+          <div class="mobile-brand">
+            <span class="brand-mark" aria-hidden="true">S</span>
+            <strong>SME Finance</strong>
+          </div>
+          <div class="topbar-caption">Business overview</div>
+          <button class="primary-button compact" id="open-transaction" type="button">
+            <span aria-hidden="true">＋</span> Add transaction
+          </button>
+        </header>
+
+        <div class="dashboard">
+          <section class="page-heading" id="overview-section">
+            <div>
+              <p class="eyebrow">YOUR BUSINESS AT A GLANCE</p>
+              <h1>Overview</h1>
+              <p class="subheading">Here’s how your business is doing.</p>
+            </div>
+            <p class="today" id="today"></p>
+          </section>
+
+          <p class="notice" id="api-notice" role="status" hidden></p>
+
+          <section class="metric-grid" aria-label="Financial summary">
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon income-icon" aria-hidden="true">↗</span>
+                <span class="metric-label">Total income</span>
+              </div>
+              <p class="metric-value" id="total-income">GH₵ 0.00</p>
+              <p class="metric-caption">Money received from sales</p>
+            </article>
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon expense-icon" aria-hidden="true">↙</span>
+                <span class="metric-label">Total expenses</span>
+              </div>
+              <p class="metric-value" id="total-expenses">GH₵ 0.00</p>
+              <p class="metric-caption">Business costs recorded</p>
+            </article>
+            <article class="metric-card profit-card">
+              <div class="metric-top">
+                <span class="metric-icon profit-icon" aria-hidden="true">◈</span>
+                <span class="metric-label">Net profit</span>
+              </div>
+              <p class="metric-value" id="net-profit">GH₵ 0.00</p>
+              <p class="metric-caption">Income after expenses</p>
+            </article>
+          </section>
+
+          <section class="section-block" id="wallets">
+            <div class="section-heading">
+              <div>
+                <h2>Your wallets</h2>
+                <p>Balances across your payment methods</p>
+              </div>
+              <span class="section-count" id="wallet-count">0 wallets</span>
+            </div>
+            <div class="wallet-grid" id="wallet-list">
+              <p class="empty-state">Loading your wallets…</p>
+            </div>
+            <p class="wallet-hint">Select a wallet to see transactions made from it.</p>
+          </section>
+
+          <section class="section-block" id="activity">
+            <div class="section-heading">
+              <div>
+                <h2 id="activity-title">Recent transactions</h2>
+                <p id="activity-description">Your latest business activity</p>
+              </div>
+              <button class="text-button" id="refresh-dashboard" type="button">Refresh</button>
+            </div>
+            <div class="transaction-toolbar">
+              <label class="search-box">
+                <span aria-hidden="true">⌕</span>
+                <input id="transaction-search" type="search" placeholder="Search transactions" aria-label="Search transactions">
+              </label>
+              <div class="filter-pills" role="group" aria-label="Filter transactions">
+                <button class="filter-pill active" type="button" data-filter="all">All</button>
+                <button class="filter-pill" type="button" data-filter="sale">Income</button>
+                <button class="filter-pill" type="button" data-filter="expense">Expenses</button>
+              </div>
+            </div>
+            <div class="transaction-list" id="transaction-list">
+              <p class="empty-state">Loading transactions…</p>
+            </div>
+          </section>
+
+          <section class="section-block debts-section" id="debts">
+            <div class="section-heading">
+              <div>
+                <h2>Outstanding debts</h2>
+                <p>Amounts awaiting payment</p>
+              </div>
+              <span class="section-count" id="debt-count">0 outstanding</span>
+            </div>
+            <div class="debt-actions">
+              <p class="debt-total">Total outstanding <strong id="debt-total">GH₵ 0.00</strong></p>
+              <button class="primary-button compact" id="open-debt" type="button">
+                <span aria-hidden="true">＋</span> Add debt
+              </button>
+            </div>
+            <div class="debt-list" id="debt-list">
+              <p class="empty-state">Loading debts…</p>
+            </div>
+          </section>
+
+          <footer class="dashboard-footer">SME Finance <span>·</span> Built for Ghanaian businesses</footer>
+        </div>
+      </main>
+    </div>
+
+    <nav class="mobile-navigation" aria-label="Mobile dashboard sections">
+      <a class="mobile-nav-link active" href="#overview-section"><span aria-hidden="true">▦</span>Home</a>
+      <a class="mobile-nav-link" href="#wallets"><span aria-hidden="true">▣</span>Wallets</a>
+      <a class="mobile-nav-link" href="#activity"><span aria-hidden="true">↕</span>Activity</a>
+      <a class="mobile-nav-link" href="#debts"><span aria-hidden="true">◷</span>Debts</a>
+    </nav>
+
+    <dialog class="transaction-dialog" id="transaction-dialog" aria-labelledby="dialog-title">
+      <form class="transaction-form" id="transaction-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">RECORD ACTIVITY</p>
+            <h2 id="dialog-title">Add a transaction</h2>
+          </div>
+          <button class="close-button" id="close-dialog" type="button" aria-label="Close">×</button>
+        </div>
+        <label for="transaction-type">Transaction type</label>
+        <select id="transaction-type" name="type" required>
+          <option value="sale">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <label for="transaction-amount">Amount (GH₵)</label>
+        <input id="transaction-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+        <label for="transaction-category">Category</label>
+        <input id="transaction-category" name="category" maxlength="80" placeholder="e.g. Sales, supplies" required>
+        <label for="payment-method">Paid via</label>
+        <select id="payment-method" name="payment_method" required>
+          <option value="cash">Cash</option>
+          <option value="momo">Mobile money</option>
+          <option value="bank">Bank</option>
+          <option value="card">Card</option>
+        </select>
+        <label for="transaction-note">Note <span>(optional)</span></label>
+        <input id="transaction-note" name="note" maxlength="200" placeholder="Add a short note">
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <button class="primary-button submit-button" id="save-transaction" type="submit">Save transaction</button>
+      </form>
+    </dialog>
+
+    <dialog class="transaction-dialog" id="debt-dialog" aria-labelledby="debt-dialog-title">
+      <form class="transaction-form" id="debt-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">TRACK A BALANCE</p>
+            <h2 id="debt-dialog-title">Add a debt</h2>
+          </div>
+          <button class="close-button" id="close-debt-dialog" type="button" aria-label="Close">×</button>
+        </div>
+        <label for="debt-person">Person or business</label>
+        <input id="debt-person" name="person_name" maxlength="100" placeholder="Name" required>
+        <label for="debt-amount">Amount (GH₵)</label>
+        <input id="debt-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+        <label for="debt-type">This is money</label>
+        <select id="debt-type" name="type" required>
+          <option value="customer_owes">Someone owes me</option>
+          <option value="i_owe_supplier">I owe a supplier</option>
+        </select>
+        <label for="debt-due-date">Due date <span>(optional)</span></label>
+        <input id="debt-due-date" name="due_date" type="date">
+        <p class="form-error" id="debt-form-error" role="alert" hidden></p>
+        <button class="primary-button submit-button" id="save-debt" type="submit">Save debt</button>
+      </form>
+    </dialog>
+  </body>
+</html>
